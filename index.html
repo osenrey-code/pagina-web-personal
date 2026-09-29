@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Osvaldo E. Reynoso Corona - Página Web Personal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080c; --panel:#11111a; --line:#2a2a3a;
+    --txt:#f2f2f7; --dim:#9a9ab0;
+    --a:#ff2e63; --b:#08f7fe;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--txt);
+    font-family:"Space Grotesk",Arial,sans-serif; line-height:1.6;
+    overflow-x:hidden;
+    background-image:radial-gradient(circle at 15% 0%,rgba(255,46,99,.14),transparent 40%),
+                     radial-gradient(circle at 90% 30%,rgba(8,247,254,.10),transparent 40%);
+  }
+  /* ruido tipo grano */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
+    background-image:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 3px);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:40px 6vw;position:relative}
+  .tag{color:var(--b);font-weight:600;letter-spacing:.2em;margin-bottom:10px}
+  .glitch{
+    font-family:Anton,Impact,sans-serif; text-transform:uppercase;
+    font-size:clamp(3.4rem,14vw,11rem); line-height:.95; position:relative; display:inline-block;
+  }
+  .glitch::before,.glitch::after{
+    content:attr(data-text); position:absolute; left:0; top:0; width:100%; overflow:hidden;
+  }
+  .glitch::before{color:var(--a);transform:translate(4px,0);clip-path:inset(0 0 55% 0);animation:g1 2.6s infinite steps(1)}
+  .glitch::after{color:var(--b);transform:translate(-4px,0);clip-path:inset(55% 0 0 0);animation:g2 2.1s infinite steps(1)}
+  @keyframes g1{0%,88%,100%{transform:translate(0)}90%{transform:translate(-8px,2px)}94%{transform:translate(6px,-2px)}}
+  @keyframes g2{0%,80%,100%{transform:translate(0)}83%{transform:translate(8px,-2px)}92%{transform:translate(-6px,3px)}}
+  .typing{font-size:clamp(1.1rem,3vw,1.8rem);margin-top:18px;color:var(--dim);min-height:2em}
+  .typing span{color:var(--txt)}
+  .cursor{display:inline-block;width:.6ch;background:var(--a);animation:blink 1s infinite steps(1)}
+  @keyframes blink{50%{opacity:0}}
+  .scroll{position:absolute;bottom:26px;left:6vw;color:var(--dim);font-size:.85rem;letter-spacing:.2em}
+
+  /* TICKER */
+  .ticker{background:var(--a);color:#000;font-family:Anton,Impact,sans-serif;font-size:1.6rem;
+    text-transform:uppercase;overflow:hidden;white-space:nowrap;transform:rotate(-1.2deg);margin:0 -2vw;padding:8px 0}
+  .ticker div{display:inline-block;animation:run 18s linear infinite}
+  @keyframes run{to{transform:translateX(-50%)}}
+
+  /* SECCIONES */
+  main{max-width:1050px;margin:0 auto;padding:90px 6vw 40px}
+  h2{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:clamp(2rem,6vw,3.6rem);
+    margin-bottom:26px;border-left:8px solid var(--a);padding-left:16px}
+  section{margin-bottom:90px}
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity .8s,transform .8s}
+  .reveal.in{opacity:1;transform:none}
+
+  /* PERFIL */
+  .perfil{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}
+  .foto{position:relative}
+  .foto img{width:100%;aspect-ratio:1/1.15;object-fit:cover;background:var(--panel);display:block;
+    filter:grayscale(1) contrast(1.1);transition:filter .4s;border:2px solid var(--txt)}
+  .foto::after{content:"";position:absolute;inset:14px -14px -14px 14px;border:2px solid var(--a);z-index:-1}
+  .foto:hover img{filter:none}
+  .datos{display:grid;gap:14px}
+  .dato{background:var(--panel);border:1px solid var(--line);padding:14px 20px;
+    transition:transform .25s,border-color .25s,box-shadow .25s}
+  .dato:hover{transform:translateX(12px);border-color:var(--b);box-shadow:-6px 0 0 var(--b)}
+  .dato small{display:block;color:var(--b);letter-spacing:.15em;font-size:.75rem}
+  .dato p,.dato a{font-size:1.15rem;font-weight:600;color:var(--txt);text-decoration:none;word-break:break-word}
+
+  /* HOBBIES */
+  .hobbies{display:flex;flex-wrap:wrap;gap:14px}
+  .hobbies span{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:1.5rem;
+    padding:10px 24px;border:2px solid var(--txt);transition:.25s;cursor:default}
+  .hobbies span:hover{background:var(--txt);color:#000;transform:rotate(-3deg) scale(1.08)}
+
+  /* REDES */
+  .redes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .redes a{font-family:Anton,Impact,sans-serif;text-transform:uppercase;font-size:1.6rem;text-decoration:none;
+    color:var(--txt);padding:22px;border:2px solid var(--line);background:var(--panel);position:relative;overflow:hidden;
+    transition:color .3s,border-color .3s}
+  .redes a::before{content:"";position:absolute;inset:0;background:var(--a);transform:translateY(101%);transition:transform .3s;z-index:0}
+  .redes a span{position:relative;z-index:1}
+  .redes a:hover,.redes a:focus-visible{color:#000;border-color:var(--a)}
+  .redes a:hover::before,.redes a:focus-visible::before{transform:none}
+
+  /* VIDEO */
+  .video{position:relative;padding-bottom:56.25%;height:0;border:2px solid var(--txt);box-shadow:12px 12px 0 var(--b)}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+  footer{text-align:center;color:var(--dim);padding:40px 20px 50px;border-top:1px solid var(--line)}
+  a:focus-visible{outline:3px solid var(--b);outline-offset:3px}
+
+  @media(max-width:760px){.perfil{grid-template-columns:1fr}.foto{max-width:320px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="tag">// PÁGINA PERSONAL</p>
+  <h1 class="glitch" data-text="Osvaldo E. Reynoso Corona">Osvaldo E. Reynoso Corona</h1>
+  <p class="typing">Soy <span id="escribe"></span><span class="cursor">&nbsp;</span></p>
+  <p class="scroll">DESLIZA ↓</p>
+</header>
+
+<div class="ticker"><div>
+  Osvaldo E. Reynoso Corona &nbsp;✦&nbsp; Santo Domingo &nbsp;✦&nbsp; Bienvenido a mi página &nbsp;✦&nbsp;
+  Osvaldo E. Reynoso Corona &nbsp;✦&nbsp; Santo Domingo &nbsp;✦&nbsp; Bienvenido a mi página &nbsp;✦&nbsp;
+  Osvaldo E. Reynoso Corona &nbsp;✦&nbsp; Santo Domingo &nbsp;✦&nbsp; Bienvenido a mi página &nbsp;✦&nbsp;
+  Osvaldo E. Reynoso Corona &nbsp;✦&nbsp; Santo Domingo &nbsp;✦&nbsp; Bienvenido a mi página &nbsp;✦&nbsp;
+</div></div>
+
+<main>
+
+  <section class="reveal">
+    <h2>Quién soy</h2>
+    <div class="perfil">
+      <div class="foto">
+        <img src="foto.jpg" alt="Osvaldo E. Reynoso Corona">
+      </div>
+      <div class="datos">
+        <div class="dato"><small>NOMBRE</small><p>Osvaldo E. Reynoso Corona</p></div>
+        <div class="dato"><small>TELÉFONO</small><p>829-980-0314</p></div>
+        <div class="dato"><small>DIRECCIÓN</small><p>Calle Violeta, Sector Renacimiento, Santo Domingo</p></div>
+        <div class="dato"><small>CORREO ELECTRÓNICO</small><a href="mailto:osenrey@gmail.com">osenrey@gmail.com</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Hobbies</h2>
+    <div class="hobbies">
+      <span>Ir al gym</span><span>Videojuegos</span><span>Autódromo</span><span>Montear</span>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Redes sociales</h2>
+    <div class="redes">
+      <a href="https://www.instagram.com/n0rmi__?stkn=MXdwamN2emg1aGht&utm_source=qr" target="_blank" rel="noopener"><span>Instagram</span></a>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Mi video favorito</h2>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/eJya1mrg4rw" title="Video de YouTube" allowfullscreen></iframe>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Osvaldo E. Reynoso Corona</footer>
+
+<script>
+  const frases = ["estudiante.", "gamer.", "gymrat.", "dominicano."];
+  const el = document.getElementById("escribe");
+  let f = 0, c = 0, borrando = false;
+  function escribir(){
+    const t = frases[f];
+    el.textContent = t.slice(0, c);
+    if(!borrando && c === t.length){ borrando = true; return setTimeout(escribir, 1400); }
+    if(borrando && c === 0){ borrando = false; f = (f + 1) % frases.length; }
+    c += borrando ? -1 : 1;
+    setTimeout(escribir, borrando ? 45 : 90);
+  }
+  escribir();
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:.15});
+  document.querySelectorAll(".reveal").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
